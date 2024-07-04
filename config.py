@@ -14,7 +14,7 @@ VALID_DIR = '/content/Retinanet-1/valid'
 
 # Classes: 0 index is reserved for background.
 CLASSES = [
-    'A','B','D','E','I','J','K','S','T','U','V'
+    'A','B','D','E','I','J','K','S','T','U','V','undefined'
 ]
 
 NUM_CLASSES = len(CLASSES)
