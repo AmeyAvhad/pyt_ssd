@@ -5,6 +5,7 @@ import glob as glob
 import os
 import time
 import argparse
+import matplotlib.pyplot as plt
 
 from model import create_model
 
@@ -36,7 +37,20 @@ args = vars(parser.parse_args())
 
 os.makedirs('inference_outputs/images', exist_ok=True)
 
-COLORS = [[0, 0, 0], [255, 0, 0]]
+COLORS = [
+    [0, 0, 0],      # Color for 'A'
+    [255, 0, 0],    # Color for 'B'
+    [0, 255, 0],    # Color for 'D'
+    [0, 0, 255],    # Color for 'E'
+    [255, 255, 0],  # Color for 'I'
+    [255, 0, 255],  # Color for 'J'
+    [0, 255, 255],  # Color for 'K'
+    [128, 0, 128],  # Color for 'S'
+    [128, 128, 0],  # Color for 'T'
+    [0, 128, 128],  # Color for 'U'
+    [128, 128, 128],# Color for 'V'
+    [255, 255, 255] # Color for 'undefined'
+]
 
 # Load the best model and trained weights.
 model = create_model(num_classes=NUM_CLASSES, size=640)
@@ -117,9 +131,19 @@ for i in range(len(test_images)):
                         2, 
                         lineType=cv2.LINE_AA)
 
-        cv2.imshow('Prediction', orig_image)
-        cv2.waitKey(1)
+        # Remove cv2.imshow and cv2.waitKey
+        # cv2.imshow('Prediction', orig_image)
+        # cv2.waitKey(1)
+        
+        # Save output image
         cv2.imwrite(f"inference_outputs/images/{image_name}.jpg", orig_image)
+        
+        # Optionally display the image using matplotlib
+        plt.figure(figsize=(12, 8))
+        plt.imshow(cv2.cvtColor(orig_image, cv2.COLOR_BGR2RGB))
+        plt.axis('off')
+        plt.show()
+
     print(f"Image {i+1} done...")
     print('-'*50)
 
